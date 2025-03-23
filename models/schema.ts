@@ -9,10 +9,11 @@ export const messageSchema = z.object({
     .string()
     .min(8, { message: "Message must be atleast 8 character" })
     .max(250, { message: "Message must be atmost 250 characters" }),
+    To : z.string()
 });
 
 export const signinSchema = z.object({
-  identifier: z.string().email({message: "Invalid email"}),
+  email: z.string().email("enter a valid email"),
   password: z.string().min(8, {message: "Password must be atleast 8 characters"}),
 });
 
@@ -31,7 +32,8 @@ export const signupSchema = z.object({
 });
 
 export const verifySchema = z.object({
-  verificationCode: z
+  otp: z
     .string()
     .min(6, { message: "Verification code must be atleast 6 characters" }),
+    username:z.string()
 });

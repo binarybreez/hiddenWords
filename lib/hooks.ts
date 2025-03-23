@@ -8,3 +8,10 @@ export async function requireUser(){
   }
   return session
 }
+
+export async function authorizeUser(){
+  const session = await auth()
+  if(session?.user){
+    redirect("/dashboard")
+  }
+}

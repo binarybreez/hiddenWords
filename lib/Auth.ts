@@ -1,4 +1,4 @@
-import CredentialsProvider from "next-auth/providers/credentials";
+import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/models/user.model";
 import NextAuth from "next-auth";
@@ -6,42 +6,33 @@ import { connectDB } from "./DB";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
-    CredentialsProvider({
+    Credentials({
       credentials: {
-        email: { label: "Email", type: "text" },
+        email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         await connectDB();
-        try {
-          const user = await User.findOne({
-            $or: [
-              { email: credentials.email },
-              { username: credentials.email },
-            ],
-          });
-          if (!user) throw new Error("User not found");
-          if (!user.isVerified)
-            throw new Error("User not verified verify your email");
-          const isValid = await bcrypt.compare(
-            credentials.password as string,
-            user.password
-          );
-          const userdata = {
-            id: user._id.toString(),
-            username: user.username,
-            isVerified: user.isVerified,
-            isAcceptingMessage: user.isAcceptingMessage,
-          };
-          if (isValid) {
-            return userdata;
-          } else {
-            throw new Error("Invalid password");
-          }
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-          throw new error();
+        const email = credentials.email as string;
+        const password = credentials.password as string;
+        if (!email || !password) {
+          return null;
         }
+        const user = await User.findOne({ email });
+        if (!user) {
+          return null;
+        }
+        const isValid = await bcrypt.compare(password, user.password);
+        const userdata = {
+          id: user._id.toString(),
+          username: user.username,
+          isVerified: user.isVerified,
+          isAcceptingMessage: user.isAcceptingMessage,
+        };
+        if (!isValid) {
+          return null;
+        }
+        return userdata;
       },
     }),
   ],
@@ -56,7 +47,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      if (token) {
+      if (session.user) {
         session.user.id = token.id as string;
         session.user.isVerified = token.isVerified as boolean;
         session.user.isAcceptingMessage = token.isAcceptingMessage as boolean;
@@ -70,7 +61,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   session: {
     strategy: "jwt",
-    maxAge:30*14*60*60
+    maxAge: 30 * 14 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
 });
