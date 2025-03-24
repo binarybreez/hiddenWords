@@ -3,14 +3,14 @@
 import { signIn } from "@/lib/Auth";
 import { connectDB } from "@/lib/DB";
 import { requireUser } from "@/lib/hooks";
-// import { requireUser } from "@/lib/hooks";
+import mongoose from "mongoose"
 import {
   messageSchema,
   signinSchema,
   signupSchema,
   verifySchema,
 } from "@/models/schema";
-import User from "@/models/user.model";
+import {Message, User} from "@/models/user.model";
 import { parseWithZod } from "@conform-to/zod";
 import { hash } from "bcryptjs";
 import { redirect } from "next/navigation";
@@ -75,7 +75,12 @@ export async function SendMessage(prevState: any, formData: FormData) {
   }
   await connectDB();
   const user = await User.findOne({ username: submission.value.To });
-  user.message.push(submission.value.message);
+  if(!user.isAcceptingMessage){
+    return {success:false,message:"User is not Accepting Messages."}
+  }
+  const newMessage = {content: submission.value.message} as Message
+  user.message.push(newMessage);
+  await user.save()
 }
 
 export async function isAcceptingMessage() {
@@ -105,5 +110,17 @@ export async function changeAcceptingStatus(current:boolean) {
   } catch (error) {
     console.log(error);
     return { success: false };
+  }
+}
+
+export async function deleteMessage(userId:string ,messageId:mongoose.Types.ObjectId){
+  try {
+    await connectDB()
+    const user = await User.findByIdAndUpdate(userId,{$pull:{message:{_id:messageId}}},{new:true})
+    console.log(user)
+    return {success:true}
+  } catch (error) {
+    console.log(error)
+    return {success:false}
   }
 }

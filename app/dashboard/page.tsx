@@ -8,7 +8,7 @@ export default async function page() {
   const response = await isAcceptingMessage()
   return (
     <div>
-      <div className="md:mt-4 lg:flex items-center lg:justify-between w-full md:w-[80%] mx-auto">
+      <div className="md:mt-4 lg:flex items-center lg:justify-between w-full md:w-[80%] mx-auto ">
       <CopyLink username={session?.user.username as string} />
       <AcceptingMessageSwitch current={response.data}/>
       </div>
