@@ -11,7 +11,7 @@ export function Header() {
         <Image src="/logo.svg" alt="logo" width={45} height={45} />
         <h1 className="font-semibold text-2xl">
           Hidden
-          <span className="text-transparent bg-clip-text bg-gradient-to-tr from-primary to-secondary">
+          <span className="text-transparent bg-clip-text bg-gradient-to-tr from-primary to-black">
             Words
           </span>
         </h1>

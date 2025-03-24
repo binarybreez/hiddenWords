@@ -13,8 +13,8 @@ export function CopyLink({username}:{username:string}) {
   };
   return (
     <div className="flex flex-col gap-2 w-full md:w-fit ">
-      <div className="flex items-center justify-between">
-        <Label className="text-secondary bg-transparent text-md">
+      <div className="flex items-center justify-between mt-5">
+        <Label className=" bg-transparent text-md">
           Your Link
         </Label>
         <Button variant={"outline"} className="cursor-pointer md:hidden" >Copy</Button>

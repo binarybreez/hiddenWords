@@ -30,7 +30,7 @@ export function SignupForm() {
   });
 
   return (
-    <Card className="w-[90%] md:w-[50%] lg:w-[30%]">
+    <Card className="w-[90%] md:w-[50%] lg:w-[30%] shadow-md hover:shadow-primary">
       <CardHeader>
         <CardTitle className="text-3xl font-semibold text-center">
           Register here
@@ -75,7 +75,7 @@ export function SignupForm() {
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <SubmitButton text="submit" />
+            <SubmitButton text="Register" />
             <Link
               className={buttonVariants({ variant: "outline" })}
               href="/login"

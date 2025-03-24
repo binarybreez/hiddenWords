@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/DB";
-import User from "@/models/user.model";
+import {User} from "@/models/user.model";
 import { z } from "zod";
 
 const usernameQuerySchema = z.object({
@@ -20,7 +20,6 @@ export async function GET(req: Request) {
       username: searchParams.get("username"),
     };
     const {username} = queryParam
-    const submission = 
     // const result = usernameQuerySchema.safeParse(queryParam);
     // if (!result.success) {
     //   const usernameErrors = result.error.format().username?._errors || [];

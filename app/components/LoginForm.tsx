@@ -28,7 +28,7 @@ export function LoginForm() {
     shouldRevalidate: "onInput",
   });
   return (
-    <Card className="w-[90%] md:w-[50%] lg:w-[30%]">
+    <Card className="w-[90%] md:w-[50%] lg:w-[30%] shadow-md hover:shadow-primary">
       <CardHeader>
         <CardTitle className="text-center text-3xl font-semibold">
           Login here
@@ -62,7 +62,7 @@ export function LoginForm() {
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <SubmitButton text="submit" />
+            <SubmitButton text="Login" />
             <Link
               className={buttonVariants({ variant: "outline" })}
               href="/register"

@@ -37,8 +37,8 @@ export function AcceptingMessageSwitch({current}:{current:boolean}) {
     }
   }
   return (
-    <div className="md:mt-7 mt-3 lg:mx-0 mx-auto flex items-center gap-5 border-secondary rounded-full px-3 py-1 border-2 w-fit">
-      <h1 className="text-secondary font-semibold">Accepting Message: {acceptStatus?"On":"Off"}</h1>
+    <div className="md:mt-12 mt-4 lg:mx-0 mx-auto flex items-center gap-5 border-primary rounded-full px-3 py-1 border-2 w-fit">
+      <h1 className="font-semibold">Accepting Message: {acceptStatus?"On":"Off"}</h1>
       <Switch checked={acceptStatus} onCheckedChange={handleSwitchChange} disabled={loading} />
     </div>
   )
