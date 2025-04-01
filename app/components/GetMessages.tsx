@@ -8,6 +8,7 @@ import { formatDate } from "@/lib/helper";
 import { Message } from "@/models/user.model";
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { deleteMessage } from "../actions";
 
 interface iAppProps {
   messages: Message[];
@@ -24,7 +25,10 @@ export function GetMessages({ messages, userId }: iAppProps) {
             className="hover:scale-103 transition-all shadow-md hover:shadow-primary"
           >
             <CardHeader>
-              <Button variant={"ghost"} size="icon" className="cursor-pointer border hover:border-red-600 hover:bg-gray-200 hover:text-red-600 hover:scale-105 transition shadow-md hover:shadow-primary">
+              <Button variant={"ghost"} onClick={async()=>{
+                "use server"
+                await deleteMessage(userId,message._id)}
+                } size="icon" className="cursor-pointer border hover:border-red-600 hover:bg-gray-200 hover:text-red-600 hover:scale-105 transition shadow-md hover:shadow-primary">
                 <Trash className=" size-8 p-2 rounded-full " />
               </Button>
             </CardHeader>

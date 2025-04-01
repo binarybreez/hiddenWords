@@ -76,7 +76,7 @@ export async function SendMessage(prevState: any, formData: FormData) {
   await connectDB();
   const user = await User.findOne({ username: submission.value.To });
   if(!user.isAcceptingMessage){
-    return {success:false,message:"User is not Accepting Messages."}
+    return 
   }
   const newMessage = {content: submission.value.message} as Message
   user.message.push(newMessage);
