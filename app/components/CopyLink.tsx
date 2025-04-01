@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import {toast} from "sonner"
 
 export function CopyLink({username}:{username:string}) {
-  const profileURL=`https://anonymous-message-psi.vercel.app/users/${username}`
+  const profileURL=`https://hidden-words-snowy.vercel.app/user/${username}`
   const copyLink = () => {
     navigator.clipboard.writeText(profileURL)
     toast.success("Link Copied Successfully.")
