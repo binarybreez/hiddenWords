@@ -22,7 +22,7 @@ export function CopyLink({username}:{username:string}) {
       <div className="flex items-center bg-secondary md:w-fit rounded-full">
       <Input
         readOnly
-        value={`anonymous-message-psi.vercel.app/users/${username}`}
+        value={`hidden-words-snowy.vercel.app/user/${username}`}
         className=" bg-secondary md:w-xl w-full rounded-full"
         />
         <Button className="hidden md:block rounded-full" onClick={copyLink}>Copy</Button>
